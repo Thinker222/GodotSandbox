@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://4l3a0f2jfbsv"]
+
+[ext_resource type="Script" uid="uid://0tuaif4tqd4s" path="res://scripts/player.gd" id="1_4dohe"]
+[ext_resource type="PackedScene" uid="uid://v7w52tuhgxxh" path="res://assets/player_tank.fbx" id="1_72ieh"]
+
+[node name="Player" type="MeshInstance3D"]
+script = ExtResource("1_4dohe")
+
+[node name="player_tank" parent="." instance=ExtResource("1_72ieh")]
