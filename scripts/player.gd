@@ -15,15 +15,20 @@ func _ready():
 	
 func _process(delta):
 	
-	var tread_speed_left =  0
-	var tread_speed_right = 0
+	# Get analog inputs 
+	var tread_speed_left = Input.get_axis("left_axis_back", "left_axis_forward")
+	var tread_speed_right = Input.get_axis("right_axis_back", "right_axis_forward")
 	
+	var velocity = 0.0
+
+	if sign(tread_speed_left) != sign(tread_speed_right):
+		velocity = tread_speed_left + tread_speed_right
+	elif abs(tread_speed_left) > abs(tread_speed_right):
+		velocity = tread_speed_left
+	else:
+		velocity = tread_speed_right
 	
-	tread_speed_left = Input.get_axis("left_axis_back", "left_axis_forward")
-	tread_speed_right = Input.get_axis("right_axis_back", "right_axis_forward")
-		
-	#take lowest speed 
-	velocity = min(abs(tread_speed_left), abs(tread_speed_right)) * acceleration * transform.basis.z * delta
+	velocity *= transform.basis.z 	
 	
 	angular_velocity = (-tread_speed_left + tread_speed_right) * angular_acceleration * delta
 	
