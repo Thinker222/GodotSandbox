@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://v7w52tuhgxxh" path="res://assets/player_tank.fbx" id="1_72ieh"]
 
 [node name="Player" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 script = ExtResource("1_4dohe")
 
 [node name="player_tank" parent="." instance=ExtResource("1_72ieh")]
