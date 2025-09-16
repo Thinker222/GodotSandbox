@@ -48,11 +48,12 @@ func _process(delta):
 	var rotation_amount : Quaternion = Quaternion(Vector3.UP, delta)
 	var quaternion = turret_transform.basis.get_rotation_quaternion() * rotation_amount
 	turret_transform.basis = Basis(quaternion)
-	skeleton.set_bone_global_pose(1, turret_transform.basis)
+	skeleton.set_bone_global_pose(1, turret_transform)
+	
 	
 	if cumulative_delta - last_bullet_fired > 1.0:
 		var new_bullet = bullet_prefab.instantiate()
-		new_bullet.global_transform = Transform3D(Basis(quaternion), transform.origin)
+		new_bullet.global_transform = Transform3D(turret_transform.basis, turret_transform.origin + turret_transform.basis.z * 1.3)
 		get_tree().current_scene.add_child(new_bullet)
 		new_bullet.init()
 		last_bullet_fired = cumulative_delta
