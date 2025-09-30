@@ -1,10 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://4l3a0f2jfbsv"]
+[gd_scene load_steps=4 format=3 uid="uid://4l3a0f2jfbsv"]
 
 [ext_resource type="Script" uid="uid://0tuaif4tqd4s" path="res://scripts/player.gd" id="1_4dohe"]
 [ext_resource type="PackedScene" uid="uid://v7w52tuhgxxh" path="res://assets/player_tank.fbx" id="1_72ieh"]
 
-[node name="Player" type="MeshInstance3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4dohe"]
+size = Vector3(0.230164, 0.139465, 0.229065)
+
+[node name="Player" type="AnimatableBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_4dohe")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -0.0148504, 0.368317, -0.000121593)
+shape = SubResource("BoxShape3D_4dohe")
+
 [node name="player_tank" parent="." instance=ExtResource("1_72ieh")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)

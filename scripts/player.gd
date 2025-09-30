@@ -1,8 +1,7 @@
-extends MeshInstance3D
+extends AnimatableBody3D
 
 #@onready var skeleton: Skeleton3D = $player_tank/Armature/Skeleton3D
-@export var acceleration = 100
-@export var deceleration = 30
+@export var velocity_scaler = 2.71828
 @export var angular_acceleration = 3
 @export var angular_deceleration = 6.9 * (PI / 180)
 @export var bullet_prefab = preload("res://prefabs/bullet.tscn")
@@ -12,7 +11,7 @@ extends MeshInstance3D
 
 const EPSILON: float = 0.001
 var velocity 
-var angular_velocity
+var angular
 var cumulative_delta 
 var last_bullet_fired
 
@@ -20,7 +19,7 @@ var tank_skeleton
 
 func _ready():
 	velocity = Vector3.ZERO 
-	angular_velocity = 0.0
+	angular = 0.0
 	cumulative_delta = 0.0
 	last_bullet_fired = 0.0	
 	
@@ -49,12 +48,17 @@ func tank_locomotion(delta):
 	else:
 		velocity = tread_speed_right
 	
-	velocity *= transform.basis.z 	
+	if velocity != 0.0:
+		velocity *= transform.basis.z 	* delta * velocity_scaler
+		move_and_collide(velocity)
 	
-	angular_velocity = (-tread_speed_left + tread_speed_right) * angular_acceleration * delta
+	angular = (-tread_speed_left + tread_speed_right) * angular_acceleration * delta
 	
-	rotate(Vector3.UP, angular_velocity)
-	transform.origin = transform.origin + velocity * delta 	
+	#rotate(Vector3.UP, angular)
+	rotate_y(angular)
+	
+	#self.linear_velocity += velocity * delta * -1
+	#transform.origin = transform.origin + velocity * delta 	
 
 func turret_rotation(delta):	
 	var turret_transform : Transform3D = tank_skeleton.get_bone_global_pose(1)

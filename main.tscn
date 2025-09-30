@@ -1,21 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://dy14h64ohigl8"]
+[gd_scene load_steps=5 format=3 uid="uid://dy14h64ohigl8"]
 
+[ext_resource type="Material" uid="uid://7ylosa5rtho4" path="res://materials/ground_plane_material.tres" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://4l3a0f2jfbsv" path="res://prefabs/player.tscn" id="1_ig7tw"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
-albedo_color = Color(0, 0.0235294, 0.0784314, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
+size = Vector3(100, 0.1, 100)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_h2yge"]
-material = SubResource("StandardMaterial3D_0xm2m")
+[sub_resource type="PlaneMesh" id="PlaneMesh_1bvp3"]
 
 [node name="Main" type="Node3D"]
 
-[node name="GroundPlane" type="MeshInstance3D" parent="."]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.0233393, 0.0242548, 0.00933886)
-mesh = SubResource("PlaneMesh_h2yge")
+[node name="GroundPlane" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0233393, 0.0242548, 0.00933886)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.477539, 0)
+shape = SubResource("BoxShape3D_h2yge")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GroundPlane"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1bvp3")
+surface_material_override/0 = ExtResource("1_0xm2m")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+sync_to_physics = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 13.6606, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0)
