@@ -7,13 +7,17 @@
 [sub_resource type="SphereMesh" id="SphereMesh_lv25w"]
 
 [node name="Bullet" type="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0244446, 9.53674e-07, -0.0109577)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00167866, 0)
+collision_layer = 2
+axis_lock_linear_y = true
+axis_lock_angular_y = true
+continuous_cd = true
 script = ExtResource("1_fh0yl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 shape = SubResource("SphereShape3D_lv25w")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 mesh = SubResource("SphereMesh_lv25w")
+skeleton = NodePath("../..")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dy14h64ohigl8"]
+[gd_scene load_steps=6 format=3 uid="uid://dy14h64ohigl8"]
 
 [ext_resource type="Material" uid="uid://7ylosa5rtho4" path="res://materials/ground_plane_material.tres" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://4l3a0f2jfbsv" path="res://prefabs/player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cfuuoqay83g8n" path="res://prefabs/wall.tscn" id="3_h2yge"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
 size = Vector3(100, 0.1, 100)
@@ -34,3 +35,9 @@ sync_to_physics = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0)
+
+[node name="Wall" parent="." instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5563, 2.25632, -1.19236)
+
+[node name="Wall2" parent="." instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7719, 2.59206, 1.85556)
