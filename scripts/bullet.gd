@@ -11,7 +11,6 @@ var cumulative_time
 var hit_count = 0
 
 
-
 func _ready():
 	gravity_scale = 0.0
 	
@@ -60,4 +59,7 @@ func _on_collision_info(collider: Node, position: Vector3, normal: Vector3):
 	var attenuated_velocity = newest_angle * (bullet_force * attenuation / hit_count)	
 	apply_impulse(attenuated_velocity, Vector3.ZERO)
 	velocity = attenuated_velocity;
-	pass
+	if collider is Player:
+		var player = collider as Player 
+		player.on_hit()
+		

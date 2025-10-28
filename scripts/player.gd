@@ -1,3 +1,4 @@
+class_name Player
 extends AnimatableBody3D
 
 #@onready var skeleton: Skeleton3D = $player_tank/Armature/Skeleton3D
@@ -5,6 +6,7 @@ extends AnimatableBody3D
 @export var angular_acceleration = 3
 @export var angular_deceleration = 6.9 * (PI / 180)
 @export var bullet_prefab = preload("res://prefabs/bullet.tscn")
+@export var explosion_prefab = preload("res://prefabs/explosion.tscn")
 @export var turret_rotation_speed = 5
 
 @export var bullet_force = 15
@@ -14,7 +16,7 @@ var velocity
 var angular
 var cumulative_delta 
 var last_bullet_fired
-
+var has_been_hit
 var tank_skeleton
 
 func _ready():
@@ -22,7 +24,7 @@ func _ready():
 	angular = 0.0
 	cumulative_delta = 0.0
 	last_bullet_fired = 0.0	
-	
+	has_been_hit = false
 	tank_skeleton = $player_tank/Armature/Skeleton3D
 		
 func _process(delta):	
@@ -86,3 +88,14 @@ func fire():
 	get_tree().current_scene.add_child(new_bullet)
 	new_bullet.init(bullet_force)
 	last_bullet_fired = cumulative_delta
+	
+func on_hit():
+	if not has_been_hit:
+		has_been_hit = true 
+		var explosion = explosion_prefab.instantiate() as GPUParticles3D
+		get_tree().current_scene.add_child(explosion)
+		explosion.emitting = true
+		self.queue_free()
+		
+		
+	
